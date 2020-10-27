@@ -1,0 +1,12 @@
+CREATE 
+	OR REPLACE FUNCTION time_configuration_items_func () RETURNS TRIGGER AS $example_table$ BEGIN
+		INSERT INTO time_configuration_items ( ID, createtime )
+	VALUES
+		( 1, CURRENT_TIMESTAMP );
+	RETURN NEW;
+	
+END;  
+$example_table$ LANGUAGE plpgsql;
+
+CREATE TRIGGER time_configuration_items_trigger AFTER INSERT ON pl_dictionary FOR EACH ROW
+EXECUTE PROCEDURE time_configuration_items_func ();
